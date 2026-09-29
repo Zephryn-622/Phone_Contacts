@@ -30,8 +30,64 @@ struct AddressBook {
     int P_Size;
 };
 
+void AddPerson(AddressBook * book) {
+    if(book->P_Size == MAX) {
+        cout << "Contacts is FULL!" << endl;
+        return;
+    }
+    else {
+        string name;
+        cout << "Enter name: " << endl;
+        cin >> name;
+        book->personArray[book->P_Size].P_Name = name;
+
+        int gender = 0;
+        cout << "Enter 1 for male, 2 for female" << endl;
+        cout << "Enter gender:" << endl;
+        
+        while(true) {
+            cin >> gender;
+            if(gender == 1||gender == 2) {
+                book->personArray[book->P_Size].P_Gender = gender;
+                break;
+            }
+            cout << "ERROR! Please enter again." << endl;
+        }
+
+        int age = 0;
+        cout << "Enter age: " << endl;
+        
+        while(true) {
+            cin >> age;
+            if(age > 0 && age < 200) {
+                book->personArray[book->P_Size].P_Age = age;
+                break;
+            }
+            cout << "ERROR! Please enter again." << endl;
+            // control + c to terminate
+        }
+
+        string phone;
+        cout << "Enter phone number: " << endl;
+        cin >> phone;
+        book->personArray[book->P_Size].P_Phone = phone;
+
+        string email;
+        cout << "Enter email: " << endl;
+        cin >> email;
+        book->personArray[book->P_Size].P_Email = email;
+
+        book->P_Size++;
+
+        system("pause");
+        system("cls");
+    }
+}
+
 int main() {
     int select = 0;
+    AddressBook book;
+    book.P_Size = 0;
 
     while(true) {
         showMenu();
@@ -40,6 +96,7 @@ int main() {
 
         switch(select) {
             case 1: // Add contacts
+                AddPerson(&book);
                 break;
             case 2: // Show contacts
                 break;
