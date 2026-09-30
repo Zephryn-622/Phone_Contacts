@@ -17,10 +17,20 @@ void showMenu() {
     cout << "================================" << endl;
 }
 
+void pauseClear() {
+    cout << endl;
+    cout << "Press ENTER to continue..." << endl;
+
+    cin.ignore(numeric_limits<streamsize>::max(),'\n');
+    cin.get();
+
+    system("clear");
+}
+
 struct Person {
     string P_Name;
     int P_Gender; // 1 for male, 2 for female
-    int P_Age;
+    int P_Age; // age in between 0 and 200
     string P_Phone;
     string P_Email;
 };
@@ -36,28 +46,32 @@ void AddPerson(AddressBook * book) {
         return;
     }
     else {
+        // Name
         string name;
-        cout << "Enter name: " << endl;
+        cout << "Enter name: ";
         cin >> name;
         book->personArray[book->P_Size].P_Name = name;
 
+        // Gender
         int gender = 0;
-        cout << "Enter 1 for male, 2 for female" << endl;
-        cout << "Enter gender:" << endl;
+        cout << "Enter gender (1 for male, 2 for female): ";
         
         while(true) {
+            cout << "Enter gender: ";
             cin >> gender;
             if(gender == 1||gender == 2) {
                 book->personArray[book->P_Size].P_Gender = gender;
                 break;
             }
             cout << "ERROR! Please enter again." << endl;
+            // control + c to terminate
         }
 
+        // Age
         int age = 0;
-        cout << "Enter age: " << endl;
         
         while(true) {
+            cout << "Enter age: ";
             cin >> age;
             if(age > 0 && age < 200) {
                 book->personArray[book->P_Size].P_Age = age;
@@ -67,20 +81,25 @@ void AddPerson(AddressBook * book) {
             // control + c to terminate
         }
 
+        // Phone number
         string phone;
-        cout << "Enter phone number: " << endl;
+        cout << "Enter phone number: ";
         cin >> phone;
         book->personArray[book->P_Size].P_Phone = phone;
 
+        // Email
         string email;
-        cout << "Enter email: " << endl;
+        cout << "Enter email: ";
         cin >> email;
         book->personArray[book->P_Size].P_Email = email;
 
+        // Increase contact count
         book->P_Size++;
 
-        system("pause");
-        system("cls");
+        cout << endl;
+        cout << "Added successful" << endl;
+        
+        pauseClear();
     }
 }
 
@@ -93,6 +112,7 @@ int main() {
         showMenu();
 
         cin >> select;
+        cout << endl;
 
         switch(select) {
             case 1: // Add contacts
