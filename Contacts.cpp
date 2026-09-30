@@ -5,6 +5,7 @@
 
 using namespace std;
 
+// Show all selection in menu
 void showMenu() {
     cout << "================================" << endl;
     cout << "1. Add contacts" << endl;
@@ -17,6 +18,7 @@ void showMenu() {
     cout << "================================" << endl;
 }
 
+// Pause and clear screen
 void pauseClear() {
     cout << endl;
     cout << "Press ENTER to continue..." << endl;
@@ -27,6 +29,7 @@ void pauseClear() {
     system("clear");
 }
 
+// Structure of contacts
 struct Person {
     string P_Name;
     int P_Gender; // 1 for male, 2 for female
@@ -35,11 +38,13 @@ struct Person {
     string P_Email;
 };
 
+// Structure of address book
 struct AddressBook {
     struct Person personArray[MAX];
     int P_Size;
 };
 
+// Add contact function
 void AddPerson(AddressBook * book) {
     if(book->P_Size == MAX) {
         cout << "Contacts is FULL!" << endl;
@@ -103,6 +108,7 @@ void AddPerson(AddressBook * book) {
     }
 }
 
+// Show contact function
 void ShowPerson(AddressBook * book) {
     if(book->P_Size == 0){
         cout << "No contacts in system." << endl;
@@ -125,8 +131,41 @@ void ShowPerson(AddressBook * book) {
             cout << endl;
         }
         pauseClear();
+    }   
+}
+
+// Find contact function
+int PersonExist(AddressBook * book, string name) {
+    for(int i = 0; i < book->P_Size; i++) {
+        if(book->personArray[i].P_Name == name) {
+            // contact found
+            return i;
+        }
     }
+    // contact not found
+    return -1; 
+}
+
+void DeletePerson(AddressBook * book) {
+    cout << "Enter contact name to be deleted: ";
+    string name;
+    cin >> name;
+
+    // -1 is not found, other is found 
+    int deletePerson = PersonExist(book, name);
     
+    if(deletePerson != -1){
+        for(int i = deletePerson; i < book->P_Size; i++) {
+            book->personArray[i] = book->personArray[i + 1];
+        }
+        book->P_Size--;
+        cout << endl;
+        cout << "Deleted successful" << endl;
+    }
+    else {
+        cout << endl;
+        cout << "Contact not found." << endl;
+    }
 }
 
 int main() {
@@ -148,8 +187,23 @@ int main() {
                 ShowPerson(&book);
                 break;
             case 3: // Delete contacts
+                DeletePerson(&book);
                 break;
             case 4: // Find contacts
+            {
+                // cout << "Enter Name: ";
+                // string name;
+                // cin >> name;
+                
+                // if(PersonExist(&book, name) == -1) {
+                //     cout << "Contact not found." << endl;
+                // }
+                // else {
+                //     cout << "Contact found." << endl;
+                //     cout << endl;
+
+                // }
+            }
                 break;
             case 5: // Edit contacts
                 break;
