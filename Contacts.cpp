@@ -103,6 +103,32 @@ void AddPerson(AddressBook * book) {
     }
 }
 
+void ShowPerson(AddressBook * book) {
+    if(book->P_Size == 0){
+        cout << "No contacts in system." << endl;
+    }
+    else {
+        for(int i = 0; i < book->P_Size; i++) {
+            cout << "Name: " << book->personArray[i].P_Name << endl;
+
+            if(book->personArray[i].P_Gender == 1) {
+                cout << "Gender: Male" << endl;
+            }
+            else {
+                cout << "Gender: Female" << endl;
+            }
+
+            cout << "Gender: " << book->personArray[i].P_Gender << endl;
+            cout << "Age: " << book->personArray[i].P_Age << endl;
+            cout << "Phone number: " << book->personArray[i].P_Phone << endl;
+            cout << "E-mail: " << book->personArray[i].P_Email << endl;
+            cout << endl;
+        }
+        pauseClear();
+    }
+    
+}
+
 int main() {
     int select = 0;
     AddressBook book;
@@ -119,6 +145,7 @@ int main() {
                 AddPerson(&book);
                 break;
             case 2: // Show contacts
+                ShowPerson(&book);
                 break;
             case 3: // Delete contacts
                 break;
