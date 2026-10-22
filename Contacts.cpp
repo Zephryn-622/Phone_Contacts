@@ -152,9 +152,10 @@ void DeletePerson(AddressBook * book) {
     string name;
     cin >> name;
 
-    // -1 is not found, other is found 
     int deletePerson = PersonExist(book, name);
     
+
+    // -1 is not found, other is found 
     if(deletePerson != -1) {
         for(int i = deletePerson; i < book->P_Size; i++) {
             book->personArray[i] = book->personArray[i + 1];
@@ -199,9 +200,9 @@ void EditPerson(AddressBook * book) {
     string name;
     cin >> name;
 
-    // -1 is not found, other is found
     int editPerson = PersonExist(book, name);
 
+    // -1 is not found, other is found
     if(editPerson != -1) {
         cout << endl;
 
@@ -254,6 +255,31 @@ void EditPerson(AddressBook * book) {
     pauseClear();
 }
 
+// 6. Clear contact
+void ClearPerson(AddressBook * book) {
+    char select;
+
+    // Enter yes or no to clear all contacts
+    while(true){
+        cout << "Confirm clear all contacts? (Y/N)" << endl;
+        cin >> select;
+
+        if(select == 'Y' || select == 'y'){
+            book->P_Size = 0;
+            cout << endl;
+            cout << "All contacts cleared." << endl;
+            break;
+        }else if(select == 'N' || select == 'n'){
+            break;
+        }else{
+            cout << endl;
+            cout << "ERROR! Please enter again.\n" << endl;
+            cout << endl;
+        }
+    }
+    pauseClear();
+}
+
 int main() {
     int select = 0;
     AddressBook book;
@@ -282,6 +308,7 @@ int main() {
                 EditPerson(&book);
                 break;
             case 6: // Clear contacts
+                ClearPerson(&book);
                 break;
             case 0: // Exit
                 cout << "See you next time!" << endl;
