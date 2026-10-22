@@ -1,5 +1,8 @@
 #include <iostream>
 #include <string>
+#include <limits>
+#include <cstdlib>
+
 #define MAX 1500
 // Maximum 1500 contacts
 
@@ -33,7 +36,7 @@ void pauseClear() {
 struct Person {
     string P_Name;
     int P_Gender; // 1 for male, 2 for female
-    int P_Age; // age in between 0 and 200
+    int P_Age; // age between 0 and 200
     string P_Phone;
     string P_Email;
 };
@@ -54,15 +57,14 @@ void AddPerson(AddressBook * book) {
         // Name
         string name;
         cout << "Enter name: ";
-        cin >> name;
+        getline(cin >> ws, name);
         book->personArray[book->P_Size].P_Name = name;
 
         // Gender
         int gender = 0;
-        cout << "Enter gender (1 for male, 2 for female): ";
-        
+
         while(true) {
-            cout << "Enter gender: ";
+            cout << "Enter gender (1 for male, 2 for female): ";
             cin >> gender;
             if(gender == 1||gender == 2) {
                 book->personArray[book->P_Size].P_Gender = gender;
@@ -124,7 +126,6 @@ void ShowPerson(AddressBook * book) {
                 cout << "Gender: Female" << endl;
             }
 
-            cout << "Gender: " << book->personArray[i].P_Gender << endl;
             cout << "Age: " << book->personArray[i].P_Age << endl;
             cout << "Phone number: " << book->personArray[i].P_Phone << endl;
             cout << "E-mail: " << book->personArray[i].P_Email << endl;
@@ -150,14 +151,14 @@ int PersonExist(AddressBook * book, string name) {
 void DeletePerson(AddressBook * book) {
     cout << "Enter contact name to be deleted: ";
     string name;
-    cin >> name;
+    getline(cin >> ws, name);
 
     int deletePerson = PersonExist(book, name);
     
 
     // -1 is not found, other is found 
     if(deletePerson != -1) {
-        for(int i = deletePerson; i < book->P_Size; i++) {
+        for(int i = deletePerson; i < book->P_Size - 1; i++) {
             book->personArray[i] = book->personArray[i + 1];
         }
         book->P_Size--;
@@ -175,15 +176,22 @@ void DeletePerson(AddressBook * book) {
 void FindPerson(AddressBook * book) {
     cout << "Enter contact name want to found: ";
     string name;
-    cin >> name;
-
+    getline(cin >> ws, name);
+    
     int findPerson = PersonExist(book, name);
 
     // -1 is not found, other is found
     if(findPerson != -1) {
         cout << endl;
         cout << "Contact name: " << book->personArray[findPerson].P_Name << endl;
-        cout << "Contact gender: " << book->personArray[findPerson].P_Gender << endl;
+
+        if(book->personArray[findPerson].P_Gender == 1) {
+                cout << "Contact gender: Male" << endl;
+            }
+            else {
+                cout << "Contact gender: Female" << endl;
+            }
+
         cout << "Contact age: " << book->personArray[findPerson].P_Age << endl;
         cout << "Contact phone number: " << book->personArray[findPerson].P_Phone << endl;
         cout << "Contact email: " << book->personArray[findPerson].P_Email << endl;
@@ -198,7 +206,7 @@ void FindPerson(AddressBook * book) {
 void EditPerson(AddressBook * book) {
     cout << "Enter contact name want to edit: ";
     string name;
-    cin >> name;
+    getline(cin >> ws, name);
 
     int editPerson = PersonExist(book, name);
 
@@ -314,6 +322,8 @@ int main() {
                 cout << "See you next time!" << endl;
                 return 0;
             default:
+                cout << "Invalid selection. Please try again." << endl;
+                pauseClear();
                 break;
         }    
     }
