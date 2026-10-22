@@ -44,7 +44,7 @@ struct AddressBook {
     int P_Size;
 };
 
-// Add contact function
+// 1. Add contact function
 void AddPerson(AddressBook * book) {
     if(book->P_Size == MAX) {
         cout << "Contacts is FULL!" << endl;
@@ -108,7 +108,7 @@ void AddPerson(AddressBook * book) {
     }
 }
 
-// Show contact function
+// 2. Show contact function
 void ShowPerson(AddressBook * book) {
     if(book->P_Size == 0){
         cout << "No contacts in system." << endl;
@@ -134,7 +134,7 @@ void ShowPerson(AddressBook * book) {
     }   
 }
 
-// Find contact function
+// Determine contact existence function
 int PersonExist(AddressBook * book, string name) {
     for(int i = 0; i < book->P_Size; i++) {
         if(book->personArray[i].P_Name == name) {
@@ -146,6 +146,7 @@ int PersonExist(AddressBook * book, string name) {
     return -1; 
 }
 
+// 3. Delete contact function
 void DeletePerson(AddressBook * book) {
     cout << "Enter contact name to be deleted: ";
     string name;
@@ -154,7 +155,7 @@ void DeletePerson(AddressBook * book) {
     // -1 is not found, other is found 
     int deletePerson = PersonExist(book, name);
     
-    if(deletePerson != -1){
+    if(deletePerson != -1) {
         for(int i = deletePerson; i < book->P_Size; i++) {
             book->personArray[i] = book->personArray[i + 1];
         }
@@ -166,6 +167,29 @@ void DeletePerson(AddressBook * book) {
         cout << endl;
         cout << "Contact not found." << endl;
     }
+    pauseClear();
+}
+
+// 4. Find contact function
+void FindPerson(AddressBook * book) {
+    cout << "Enter contact name want to found: ";
+    string name;
+    cin >> name;
+
+    int findPerson = PersonExist(book, name);
+
+    if(findPerson != -1) {
+        cout << endl;
+        cout << "Contact name: " << book->personArray[findPerson].P_Name << endl;
+        cout << "Contact gender: " << book->personArray[findPerson].P_Gender << endl;
+        cout << "Contact age: " << book->personArray[findPerson].P_Age << endl;
+        cout << "Contact phone number: " << book->personArray[findPerson].P_Phone << endl;
+        cout << "Contact email: " << book->personArray[findPerson].P_Email << endl;
+    }else {
+        cout << endl;
+        cout << "Contact not found." << endl;
+    }
+    pauseClear();
 }
 
 int main() {
@@ -190,20 +214,7 @@ int main() {
                 DeletePerson(&book);
                 break;
             case 4: // Find contacts
-            {
-                // cout << "Enter Name: ";
-                // string name;
-                // cin >> name;
-                
-                // if(PersonExist(&book, name) == -1) {
-                //     cout << "Contact not found." << endl;
-                // }
-                // else {
-                //     cout << "Contact found." << endl;
-                //     cout << endl;
-
-                // }
-            }
+                FindPerson(&book);
                 break;
             case 5: // Edit contacts
                 break;
