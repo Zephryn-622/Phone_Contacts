@@ -178,6 +178,7 @@ void FindPerson(AddressBook * book) {
 
     int findPerson = PersonExist(book, name);
 
+    // -1 is not found, other is found
     if(findPerson != -1) {
         cout << endl;
         cout << "Contact name: " << book->personArray[findPerson].P_Name << endl;
@@ -189,6 +190,67 @@ void FindPerson(AddressBook * book) {
         cout << endl;
         cout << "Contact not found." << endl;
     }
+    pauseClear();
+}
+
+// 5. Edit contact function
+void EditPerson(AddressBook * book) {
+    cout << "Enter contact name want to edit: ";
+    string name;
+    cin >> name;
+
+    // -1 is not found, other is found
+    int editPerson = PersonExist(book, name);
+
+    if(editPerson != -1) {
+        cout << endl;
+
+        cout << "Name changed: ";
+        string name;
+        cin >> name;
+        book->personArray[editPerson].P_Name = name;
+
+        int gender = 0;
+        while(true) {
+            cout << "Gender changed (1 for male, 2 for female): ";
+            cin >> gender;
+            if(gender == 1||gender == 2) {
+                book->personArray[editPerson].P_Gender = gender;
+                break;
+            }
+            cout << "ERROR! Please enter again." << endl;
+            // control + c to terminate
+        }
+
+        int age = 0;
+        while(true) {
+            cout << "Enter age: ";
+            cin >> age;
+            if(age > 0 && age < 200) {
+                book->personArray[editPerson].P_Age = age;
+                break;
+            }
+            cout << "ERROR! Please enter again." << endl;
+            // control + c to terminate
+        }
+
+        cout << "Phone number changed: ";
+        string phone;
+        cin >> phone;
+        book->personArray[editPerson].P_Phone = phone;
+
+        cout << "Email changed: ";
+        string email;
+        cin >> email;
+        book->personArray[editPerson].P_Email = email;
+
+        cout << endl;
+        cout << "Changed successfully." << endl;
+    }else {
+        cout << endl;
+        cout << "Contact not found." << endl;
+    }
+
     pauseClear();
 }
 
@@ -217,6 +279,7 @@ int main() {
                 FindPerson(&book);
                 break;
             case 5: // Edit contacts
+                EditPerson(&book);
                 break;
             case 6: // Clear contacts
                 break;
