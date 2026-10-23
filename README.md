@@ -149,13 +149,3 @@ your test input doesn't confuse you:
 - **Phone and email are strings with no format checking** — the program never
   validates that a phone number is digits or that an email has an `@`.
 
-## Ideas for extending it
-
-Roughly in order of difficulty, if you want to keep building on this:
-
-1. Save to and load from a text file so contacts survive a restart.
-2. Case-insensitive name matching, and partial-match search.
-3. A proper `cin` error-recovery helper so bad input never wedges the menu.
-4. Replace the capped array with `std::vector<Person>` to drop the 1500 limit.
-5. Sort the display by name, or group contacts alphabetically.
-6. Multi-field input validation for phone and email formats.
