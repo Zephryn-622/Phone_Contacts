@@ -177,7 +177,7 @@ void FindPerson(AddressBook * book) {
     cout << "Enter contact name want to found: ";
     string name;
     getline(cin >> ws, name);
-    
+
     int findPerson = PersonExist(book, name);
 
     // -1 is not found, other is found
@@ -216,7 +216,7 @@ void EditPerson(AddressBook * book) {
 
         cout << "Name changed: ";
         string name;
-        cin >> name;
+        getline(cin >> ws, name);
         book->personArray[editPerson].P_Name = name;
 
         int gender = 0;
@@ -327,7 +327,5 @@ int main() {
                 break;
         }    
     }
-    
-
     return 0;
 }
