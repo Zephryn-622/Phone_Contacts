@@ -143,10 +143,6 @@ your test input doesn't confuse you:
   will not find `Alice`, and there is no partial or fuzzy search.
 - **Duplicate names are allowed.** `PersonExist` returns the first match, so
   deleting or editing a duplicated name only touches the earliest one.
-- **Spaces break names in some paths.** `AddPerson` and the lookup prompts read
-  a whole line (`getline`), but `EditPerson` reads the new name with `cin >>`,
-  so a name like `Alice Smith` entered during an edit stops at the space and
-  leaves the rest in the input buffer.
 - **Non-numeric input at a number prompt** (like typing `abc` at the menu)
   puts `cin` into a failed state and the menu starts misbehaving. The prompts
   that validate are gender and age; the menu itself just does `cin >> select`.
